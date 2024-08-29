@@ -60,8 +60,8 @@ namespace Airdrops.Nodes.Scheduler.Jobs
         {
             var chatCompletionRequest = new ChatCompletionRequest
             {
-                Messages = new List<Message>
-                {
+                Messages =
+                [
                     new()
                     {
                         Role = "system",
@@ -71,10 +71,10 @@ namespace Airdrops.Nodes.Scheduler.Jobs
                         Role = "user",
                         Content = question
                     }
-                }
+                ]
             };
 
-            _logger.LogInformation("Sending request to gaia chat with following {Question}", question);
+            _logger.LogInformation("Sending request to gaia chat. Question: {Question}", question);
 
             await _gaiaChatApiClient.GetChatCompletionAsync(chatCompletionRequest);
         }
