@@ -3,8 +3,6 @@ using Polly;
 using Refit;
 using Airdrops.Nodes.Infrastructure.Abstractions;
 using Serilog;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Airdrops.Nodes.Infrastructure
 {
@@ -43,9 +41,11 @@ namespace Airdrops.Nodes.Infrastructure
 
             static IAsyncPolicy<HttpResponseMessage> GetPolicy(IServiceProvider serviceProvider, HttpRequestMessage requestMessage)
             {
-                var logger = serviceProvider.GetRequiredService<ILogger>();
+                var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger("RetryPolicy");
                 return HttpPolicyExtensions
                     .HandleTransientHttpError()
+                    .Or<OperationCanceledException>()
                     .OrResult(response => (int)response.StatusCode == 429 || (int)response.StatusCode > 500)
                     .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
                     (outcome, timespan, retryAttempt, context) =>

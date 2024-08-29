@@ -3,8 +3,7 @@
     "Airdrops.Nodes.Scheduler": {
       "commandName": "Project",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development",
-        "Endpoints:GaiaChatBaseUrl": "test"
+        "DOTNET_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true
     },
