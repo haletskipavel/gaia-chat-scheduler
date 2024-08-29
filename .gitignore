@@ -1,0 +1,53 @@
+# .NET Core
+bin/
+obj/
+out/
+
+# ASP.NET Core
+wwwroot/
+appsettings*.json
+*.db
+*.bak
+*.log
+*.dmp
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.opendb
+*.dbmdl
+*.bak
+*.log
+*.pdb
+*.cache
+*.swp
+
+# Rider
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Others
+*.class
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.sqlite3
