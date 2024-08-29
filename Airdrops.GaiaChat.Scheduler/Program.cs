@@ -25,7 +25,7 @@ builder.Services.AddQuartz(q =>
         .WithIdentity(nameof(GaiaChatJob))
         .StartNow()
         .WithSimpleSchedule(x => x
-            .WithInterval(TimeSpan.FromMinutes(new Random().Next(1, 5)))
+            .WithInterval(TimeSpan.FromMinutes(new Random().Next(3, 10)))
             .RepeatForever())
     );
 });
