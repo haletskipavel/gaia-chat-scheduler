@@ -27,7 +27,6 @@ namespace Airdrops.Nodes.Scheduler.Jobs
 
             try
             {
-                // Fetch question from OpenTdb API
                 var questionResponse = await _openTdbApiClient.GetQuestions(1);
                 if (questionResponse == null || !questionResponse.Results.Any())
                 {
@@ -43,7 +42,6 @@ namespace Airdrops.Nodes.Scheduler.Jobs
                     return;
                 }
 
-                // Send question to GaiaChat API
                 await SendQuestionToGaiaChat(question);
             }
             catch (Exception ex)
