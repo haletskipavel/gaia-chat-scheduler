@@ -4,8 +4,6 @@ obj/
 out/
 
 # ASP.NET Core
-wwwroot/
-appsettings*.json
 *.db
 *.bak
 *.log
