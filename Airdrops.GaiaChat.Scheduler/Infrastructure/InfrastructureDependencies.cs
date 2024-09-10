@@ -47,11 +47,12 @@ namespace Airdrops.Nodes.Infrastructure
                     .HandleTransientHttpError()
                     .Or<OperationCanceledException>()
                     .OrResult(response => (int)response.StatusCode == 429 || (int)response.StatusCode > 500)
-                    .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
-                    (outcome, timespan, retryAttempt, context) =>
-                    {
-                        logger.LogWarning("Retry {RetryAttempt} encountered an error. Waiting {Timespan} before next retry. Outcome: {StatusCode}", retryAttempt, timespan, outcome.Result.StatusCode);
-                    });
+                    .WaitAndRetryAsync(5, 
+                        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
+                        (outcome, timespan, retryAttempt, context) =>
+                        {
+                            logger.LogWarning("Retry {RetryAttempt} encountered an error. Waiting {Timespan} before next retry. Outcome: {StatusCode}", retryAttempt, timespan, outcome.Result.StatusCode);
+                        });
             }
         }
     }
