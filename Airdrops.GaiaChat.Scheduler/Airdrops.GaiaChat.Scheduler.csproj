@@ -7,8 +7,6 @@
     <UserSecretsId>dotnet-Airdrops.Nodes.Scheduler-8bc73585-94ba-40e3-b6d3-fab03e9ccbc9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
-	<PublishTrimmed>true</PublishTrimmed>
-	<PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <ItemGroup>
