@@ -24,21 +24,27 @@ internal class Program
             q.UseSimpleTypeLoader();
             q.UseInMemoryStore();
 
-            q.ScheduleJob<GaiaChatJob>(trigger => trigger
+            if (!args.Contains("--disable-gaia-chat-job"))
+            {
+                q.ScheduleJob<GaiaChatJob>(trigger => trigger
                 .WithIdentity(nameof(GaiaChatJob))
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(new Random().Next(30, 60))
                     .RepeatForever())
-            );
-
-            q.ScheduleJob<OceanEligibilityCheckerJob>(trigger => trigger
-                .WithIdentity(nameof(OceanEligibilityCheckerJob))
-                .StartNow()
-                .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes(60)
-                    .RepeatForever())
-            );
+                );
+            }
+            
+            if (!args.Contains("--disable-ocean-eligibility-job"))
+            {
+                q.ScheduleJob<OceanEligibilityCheckerJob>(trigger => trigger
+               .WithIdentity(nameof(OceanEligibilityCheckerJob))
+               .StartNow()
+               .WithSimpleSchedule(x => x
+                   .WithIntervalInMinutes(60)
+                   .RepeatForever())
+                );
+            }
         });
 
         builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
