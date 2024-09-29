@@ -2,7 +2,6 @@
 using Polly;
 using Refit;
 using Airdrops.Nodes.Infrastructure.Abstractions;
-using Serilog;
 
 namespace Airdrops.Nodes.Infrastructure
 {
@@ -15,7 +14,35 @@ namespace Airdrops.Nodes.Infrastructure
                 .ConfigureHttpClient((ctx, c) =>
                 {
                     var configuration = ctx.GetService<IConfiguration>();
-                    var opentDbBaseUrl = configuration!["Endpoints:OpentdbBaseUrl"];
+                    var baseUrl = configuration!["Endpoints:OpentdbBaseUrl"];
+
+                    ArgumentException.ThrowIfNullOrWhiteSpace(baseUrl, nameof(baseUrl));
+
+                    c.BaseAddress = new Uri(baseUrl);
+                    c.Timeout = TimeSpan.FromMinutes(2);
+                })
+                .AddPolicyHandler(GetPolicy);
+
+            services
+               .AddRefitClient<IOceanProtocolApiClient>()
+               .ConfigureHttpClient((ctx, c) =>
+               {
+                   var configuration = ctx.GetService<IConfiguration>();
+                   var baseUrl = configuration!["Endpoints:OceanProtocolApiBaseUrl"];
+
+                   ArgumentException.ThrowIfNullOrWhiteSpace(baseUrl, nameof(baseUrl));
+
+                   c.BaseAddress = new Uri(baseUrl);
+                   c.Timeout = TimeSpan.FromMinutes(2);
+               })
+               .AddPolicyHandler(GetPolicy);
+
+            services
+                .AddRefitClient<ITelegramBotApiClient>()
+                .ConfigureHttpClient((ctx, c) =>
+                {
+                    var configuration = ctx.GetService<IConfiguration>();
+                    var opentDbBaseUrl = configuration!["Endpoints:TelegramBotApiBaseUrl"];
 
                     ArgumentException.ThrowIfNullOrWhiteSpace(opentDbBaseUrl, nameof(opentDbBaseUrl));
 

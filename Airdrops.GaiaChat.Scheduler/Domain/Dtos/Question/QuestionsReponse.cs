@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Airdrops.Nodes.Domain.Dtos
+namespace Airdrops.GaiaChat.Scheduler.Domain.Dtos.Question
 {
     public class QuestionsReponse
     {

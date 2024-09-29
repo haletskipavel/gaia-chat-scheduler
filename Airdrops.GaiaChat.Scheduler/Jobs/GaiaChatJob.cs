@@ -1,4 +1,5 @@
-﻿using Airdrops.Nodes.Domain.Dtos;
+﻿using Airdrops.GaiaChat.Scheduler.Domain.Dtos.Gaia;
+using Airdrops.GaiaChat.Scheduler.Jobs;
 using Airdrops.Nodes.Infrastructure.Abstractions;
 
 using Quartz;
@@ -23,7 +24,7 @@ namespace Airdrops.Nodes.Scheduler.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            _logger.LogInformation("GaiaChatJob started.");
+            _logger.LogInformation("GaiaChatJob started. Job = {Job}", nameof(GaiaChatJob));
 
             try
             {
@@ -50,7 +51,7 @@ namespace Airdrops.Nodes.Scheduler.Jobs
             }
             finally
             {
-                _logger.LogInformation("GaiaChatJob completed.");
+                _logger.LogInformation("GaiaChatJob completed. Job = {Job}", nameof(GaiaChatJob));
             }
         }
 

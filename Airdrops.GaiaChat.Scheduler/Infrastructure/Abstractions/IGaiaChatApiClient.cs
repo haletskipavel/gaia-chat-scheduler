@@ -1,4 +1,4 @@
-﻿using Airdrops.Nodes.Domain.Dtos;
+﻿using Airdrops.GaiaChat.Scheduler.Domain.Dtos.Gaia;
 using Refit;
 
 namespace Airdrops.Nodes.Infrastructure.Abstractions
