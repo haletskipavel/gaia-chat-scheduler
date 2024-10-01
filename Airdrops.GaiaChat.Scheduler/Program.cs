@@ -23,8 +23,8 @@ internal class Program
         {
             q.UseSimpleTypeLoader();
             q.UseInMemoryStore();
-
-            if (!args.Contains("--disable-gaia-chat-job"))
+            var disableGaiaChatJob = Environment.GetEnvironmentVariable("DISABLE_GAIA_CHAT_JOB") == "true";
+            if (!disableGaiaChatJob)
             {
                 q.ScheduleJob<GaiaChatJob>(trigger => trigger
                 .WithIdentity(nameof(GaiaChatJob))
@@ -34,8 +34,8 @@ internal class Program
                     .RepeatForever())
                 );
             }
-            
-            if (!args.Contains("--disable-ocean-eligibility-job"))
+            var disableOceanEligibilityJob = Environment.GetEnvironmentVariable("DISABLE_OCEAN_ELIGIBILITY_CHECKER_JOB") == "true";
+            if (!disableOceanEligibilityJob)
             {
                 q.ScheduleJob<OceanEligibilityCheckerJob>(trigger => trigger
                .WithIdentity(nameof(OceanEligibilityCheckerJob))
